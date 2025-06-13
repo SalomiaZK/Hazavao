@@ -34,11 +34,16 @@ public class HazavaoService {
                 List.of(new Message("user", prompt)),
                 0.7
         );
+        System.out.println(  webClient.post()
+                .bodyValue(request)
+                .retrieve());
 
         return webClient.post()
                 .bodyValue(request)
                 .retrieve()
                 .bodyToMono(OpenAIResponse.class)
-                .map(response -> response.getMessages().get(0).content());
+                .map(response ->response.getChoices().get(0).getMessage().content());
+
+
     }
 }
