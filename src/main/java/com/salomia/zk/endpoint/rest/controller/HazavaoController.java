@@ -11,24 +11,21 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @RestController
 public class HazavaoController {
-    @Autowired
-    private HazavaoService hazavaoService;
+  @Autowired private HazavaoService hazavaoService;
 
-    @GetMapping("/hazavao")
-    public Mono<String> hazavao(@RequestParam String word) {
+  @GetMapping("/hazavao")
+  public Mono<String> hazavao(@RequestParam String word) {
 
-        return hazavaoService.getChatCompletion("donne la definition du mot" + word);
+    return hazavaoService.getChatCompletion("donne la definition du mot" + word);
+  }
+
+  @GetMapping("/add")
+  public long addition(@RequestParam long a, @RequestParam long b) {
+    if (a < 0 || b < 0) {
+      log.warn("negative numbers not allowed");
+    } else if (a + b < 0) {
+      log.error("zero numbers not allowed");
     }
-
-
-    @GetMapping("/add")
-    public  long addition (@RequestParam long a, @RequestParam long b){
-        if(a < 0 || b < 0){
-            log.warn("negative numbers not allowed");
-        }
-        else if(a +b < 0){
-            log.error("zero numbers not allowed");
-        }
-        return a+b;
-    }
+    return a + b;
+  }
 }
